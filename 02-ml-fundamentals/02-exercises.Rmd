@@ -50,7 +50,7 @@ naive_guess <- mean(dat$FE)
 - plot FE (Fuel Econonomy) vs. EngDisp. Plot the naive guess.
 
 ```{r}
-# ... ggplot2  
+ ggplot(dat,aes(y=dat$FE, x=dat$EngDispl))+geom_line()+geom_line(aes(y=mean(dat$FE)))
 ```
 
 - Sample 10 observations from `dat`
@@ -63,10 +63,11 @@ set.seed(314)
 
 # Sample 
 samp <- dat %>% dplyr::sample_n(10) 
+samp
 
 # Plots 
-...
 
+qplot(y=samp$FE, x=samp$EngDispl)
 
 ```
 
@@ -89,13 +90,18 @@ rmse <- function(y,yhat) {
 }
 
 mae <- function(y, yhat) {
-  # ...
+  abs(y-yhat) %>% mean %>% sqrt
 }
 
 medae <- function(y, yhat) { 
-  # ...
+ abs(y-yhat) %>% median %>% sqrt
 }
 
+y=samp$FE
+yhat=mean(dat$FE)
+rmse(y,yhat)
+mae(y,yhat)
+medae(y,yhat)
 ```
 
 Use these functions to evaluate the loss/performance of:
