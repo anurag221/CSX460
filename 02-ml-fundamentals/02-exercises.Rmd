@@ -115,7 +115,8 @@ Use these functions to evaluate the loss/performance of:
 
 
 ```{r}
-fit.2010 <- ... 
+fit.2010 <- lm(FE~EngDispl,cars2010)
+fit.2010
 ```
 
 - Use your functions to evaluate the training error
@@ -125,13 +126,13 @@ fit.2010 <- ...
 
 ```{r}
 
-y.2010 <- ... 
-y.2011 <- ... 
-y.2012 <- ...
+y.2010 <- predict(fit.2010,cars2010)
+y.2011 <- predict(fit.2010,cars2011)
+y.2012 <- predict(fit.2010,cars2012)
 
-rmse.2010 <- ...
-rmse.2011 <- ...
-rmse.2012 <- ... 
+rmse.2010 <- rmse(cars2010$FE,y.2010)
+rmse.2011 <- rmse(cars2011$FE,y.2011)
+rmse.2012 <- rmse(cars2012$FE,y.2012)
 
 ```
 
@@ -151,6 +152,6 @@ rmse.2012
 
 
 ```{r}
-fit.2010 <- ...
-betas <- ...
+fit.2011 <- lm(cars2011$FE~cars2011$EngDispl+cars2011$NumCyl+cars2011$VarValveLift)
+betas <- coef(fit.2011)
 ```
