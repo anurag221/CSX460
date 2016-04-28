@@ -57,8 +57,14 @@ Using Fuel Economy data set from the **AppliedPredictiveModeling** Package.
 - USe MASS::StepAIC to improve the model using backward stepwise regression 
 
 ```{r}
+fit.min <- lm(FE ~ 1, data=cars2010)
+fit.min
+ 
+fit.2010 <- lm(FE ~ . , data=cars2010)
+fit.2010
 
- # Your work here
+step.lm <- stepAIC(fit.2010,direction="forward",trace=0)
+step.lm
 
 ```
 
