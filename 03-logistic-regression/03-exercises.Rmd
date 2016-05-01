@@ -27,7 +27,7 @@ Note: The following will set-up your environment for this exercise. If you get a
 
 ```{r,echo=FALSE, warning=FALSE, message=FALSE}
 
-packs <-  c('AppliedPredictiveModeling', 'ggplot2', 'magrittr', 'dplyr', 'caret')
+packs <-  c('AppliedPredictiveModeling', 'ggplot2', 'magrittr', 'dplyr', 'caret', 'MASS')
 
 for( nm in packs ) { 
   # message(nm)
@@ -57,20 +57,27 @@ Using Fuel Economy data set from the **AppliedPredictiveModeling** Package.
 - USe MASS::StepAIC to improve the model using backward stepwise regression 
 
 ```{r}
-fit.min <- lm(FE ~ 1, data=cars2010)
-fit.min
+
+
+
+
+
+ # Your work here
+ fit.min <- lm( FE ~ 1, fe )
+
  
-fit.2010 <- lm(FE ~ . , data=cars2010)
-fit.2010
-
-step.lm <- stepAIC(fit.2010,direction="forward",trace=0)
-step.lm
-
+ stepAIC( fit.min.forward, scope = ~ 1, direction = "backward")
+ 
+ 
+ fit.full <- lm( FE ~ ., fe )
+ step.back <- stepAIC( fit.full, score = ~ 1, direction = "backward")
+ 
+step.forw <-  stepAIC( fit.full, score = ~ 1, direction = "forward")
 ```
 
-- Are they the same model? If not why?  Which is better?
+- Are they the same model? If not why?  Which is better? JUstify your answer.
 
-
+They not the same model. Step backward reduced the predictors, with optimal performance.
 
 
 ## Logsitic and Inverse Logistic Transformation 
@@ -90,16 +97,21 @@ step.lm
 ```{r}
 
 logistic <- function(x) { 
-  ... # Your work here  
+   # Your work here
+  y <- exp(x)/(1+exp(x))
+  return(y)
 }
-
-qplot( ... )
+x<- -10:10
+qplot(x,logistic(x))
 
 logistic_inv <- function(y) { 
-  ... # Your work  
+   # Your work 
+  
+  log((y)/(1-y))
 }
 
-qplot(...) 
+y<- 0:1
+qplot(y,logistic_inv(y))
 
 ```
 
@@ -120,7 +132,8 @@ Using the GermanCredit data from the **Caret** package/ UCI Machine Learning Lib
 
 ```{r}
 
-
+fit.min.forward <- glm(formula=GermanCredit$Class ~ ., family=binomial,data=GermanCredit)
+fit.min.forward
 ```
 
 
