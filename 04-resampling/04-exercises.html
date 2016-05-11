@@ -155,21 +155,20 @@ k=10
 # CROSS-VALIDATION
 # ... YOUR WORK HWEW
 
-sd_cv &lt;- sd(x_mean)
-
-
-# BOOTSTRAP (EXAMPLE)
-sd_boot &lt;- sapply(1:k, function(i) sample(x,replace=TRUE) %&gt;% mean ) %&gt;% sd
-sd_boot</code></pre>
-<pre><code>## [1] 1.510089</code></pre>
-<pre class="r"><code>x_mean&lt;- numeric()
-for(k in 1:20) {
+x_mean&lt;- numeric()
+for(k in 1:10) {
   x_mean &lt;- append( x_mean, sample(x,replace=TRUE) %&gt;% mean)
 }
-sd_cv &lt;- sd(x_mean)</code></pre>
+sd_cv &lt;- sd(x_mean)
+sd_cv</code></pre>
+<pre><code>## [1] 1.510089</code></pre>
+<pre class="r"><code># BOOTSTRAP (EXAMPLE)
+sd_boot &lt;- sapply(1:k, function(i) sample(x,replace=TRUE) %&gt;% mean ) %&gt;% sd
+sd_boot</code></pre>
+<pre><code>## [1] 0.7683983</code></pre>
 <ul>
-<li>sd_cv is: 1.1605938</li>
-<li>sd_boot is: 1.5100885</li>
+<li>sd_cv is: 1.5100885</li>
+<li>sd_boot is: 0.7683983</li>
 </ul>
 </div>
 <div id="exercise-2-binomial-metrics" class="section level1">
