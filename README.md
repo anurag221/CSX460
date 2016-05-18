@@ -126,16 +126,14 @@ Exercise(s):
 - Finish in-class exercises
 
 
-### 4. Logistic Regression / Classification Errors
+### 4. Resammpling Techniques Binomial Classification Metrics 
 
 #### READING: 
 
-***APM***
-
-- ***Chapter 5 Measuring Performance in Regression Models*** (esp. ***5.2 The Variance Bias Trade-Off***)  (5 pages)
-- ***Chapter 11 Measuring Performance in Classification Models*** (~20 pages)
-- ***Chapter 7.4 K-Nearest Neighbors (regression)*** (2 pages)
-- ***Chapter 13.5 K-Nearest Neighbors (classification)*** (3 pages)
+- **APM** Chapter 5 "Measuring Performance in Regression Models" (esp. 5.2 "The Variance Bias Trade-Off")  (5 pages)
+- **APM** Chapter 11 "Measuring Performance in Classification Models" (~20 pages)
+- **AMM** Chapter 7.4 "K-Nearest Neighbors" (regression) (2 pages)
+- **APM** Chapter 13.5 "K-Nearest Neighbors" (classification) (3 pages)
 
 Exercise(s):
 
