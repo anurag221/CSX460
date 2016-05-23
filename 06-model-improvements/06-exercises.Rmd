@@ -1,7 +1,7 @@
 ---
-title: "05-exercises"
-author: "Your Name Here"
-date: "2016-05-xx"
+title: "06-exercises"
+author: "Anurag Lal"
+date: "2016-05-22"
 output: html_document
 ---
 
@@ -38,35 +38,41 @@ This week we return to the Fuel Economy Data having learned much about model bui
 
 Start by making choosing a metric and making a naive guess of model performance: 
 
-Metric: _______________
-Naive Guess: _______________
+Metric: _____RMSE__________
+Naive Guess: _______MEAN________
 Expected Model Performance (based on Naive Guess): _______________
 
 Show your work below for the calculations
 
-```{r} 
-
+```{r, warning=FALSE} 
+rmse <- function(y,yhat) {
+  ( y - yhat )^2  %>% mean   %>% sqrt 
+}
   
-naive_guess = ..
+naive_guess = mean(cars2010$FE)
 
-err_naive_guess = ..
+err_naive_guess = rmse(cars2010$FE,naive_guess)
+err_naive_guess
+
 
 ```
 
 
-Based only your intuition, how low do your think you can get your metric: ___________
+Based only your intuition, how low do your think you can get your metric: __difference between predicted and actual outcome_________
 
 
 ## Examine your data
 
  * Plot your response/outcome 
 
- * Make a guess of a strong predictor: _________________  
+ * Make a guess of a strong predictor: ______EngDispl___________  
  * Plot your response vs your predictor. 
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
+fit.lm.init<-lm(FE ~ EngDispl,data=cars2010)
 
-.. # Your work here
+yhat <- predict(fit.lm.init,cars2011)
+qplot(cars2011$EngDispl,yhat)
 
 ```
 
@@ -76,15 +82,18 @@ Based only your intuition, how low do your think you can get your metric: ______
 
 Using **caret**, build a simple linear model and a simple tree model. 
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
+library(caret)
 
-fit.lm <- .. # Your model here
-fit.rp <- .. # Your model here
+ctrl<-trainControl(method="boot",savePredictions = T)
+fit.lm <- train(FE ~ EngDispl,data=cars2011,trControl=ctrl,method="glm")
+fit.rp <- train(FE ~ EngDispl,data=cars2011,trControl=ctrl,method="rpart")
 
 ```
 
 
 What did you learn about the data from these models.
+
 
 
 
@@ -94,13 +103,12 @@ Now refine your models. Use **caret** to build advanced models:
 - one that uses model averaging (bagging) 
 - one that uses boosting 
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 
 # Your work here.
-fit.bag   <- .. # bagging model 
+fit.bag   <- train(FE ~ EngDispl,data=cars2011,trControl=ctrl,method="bagEarth")
 
-fit.boost <- .. # boosting model
-
+fit.boost <- train(FE ~ EngDispl,data=cars2011,trControl=ctrl,method="gbm",verbose=F)
 
 ```
 
@@ -108,4 +116,7 @@ fit.boost <- .. # boosting model
 ## Conclusion 
 
 Which model would you use and why?  Under different circumstances why would you choose one of the other models.
+
+fit.boost(boosting using gbm model) is the best one with RMSE 4.5.
+Bagging models will be preferred when performance considerations are there, as parallel processing is possible. In Boosting processing is sequential.
 
